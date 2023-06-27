@@ -48,16 +48,3 @@ const cartReducer = (state, action) => {
 };
 
 export default cartReducer;
-
-// switch (action.type) {
-//   case ADD_TO_CART:
-//     return {
-//         const updatedItems = state.items.concat(action.item);
-//     };
-
-//   case REMOVE_FROM_CART:
-//     return 2;
-
-//   default:
-
-// };
