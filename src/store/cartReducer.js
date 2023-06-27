@@ -7,34 +7,36 @@ export const defaultCartState = {
 
 const cartReducer = (state, action) => {
 
-  if (action.type === ADD_TO_CART) {
+    console.log("STATE:", state.items);
 
+    if (action.type === ADD_TO_CART) {
+        
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
 
     const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.item.id
-    );
-
-    const existingCartItem = state.items[existingCartItemIndex]; // eger index'i bulamazsa sonucu 'null' olacak bunun.
-
-    let updatedItems;
+        (item) => item.id === action.item.id
+        );
+        
+        const existingCartItem = state.items[existingCartItemIndex]; // eger index'i bulamazsa sonucu 'null' olacak bunun.
+        
+        let updatedItems;
     
-    // eger shopping cart'ta item bulunuyorsa bu islemi tekrar yapmasin hepsini birlestirsin diye bu islemi yapiyoruz. Orn : diyelim ki Sushi'yi ekledik Cart'a, sonra bir kere daha Sushiyi  ekledik, asagidaki if kosulu olmaksızın sanki farklı bir sey eklemisiz gibi Sushi'yi tekrar tekrar ekliyor, iste biz bunu yapmasini istemiyoruz. Aynı id'ye sahip ayni item oldugunu bul, eger yeniden ayni item eklenirse bunu yeniden bul ve ona gore islem yap diyoruz KISACA XD 
+        // eger shopping cart'ta item bulunuyorsa bu islemi tekrar yapmasin hepsini birlestirsin diye bu islemi yapiyoruz. Orn : diyelim ki Sushi'yi ekledik Cart'a, sonra bir kere daha Sushiyi  ekledik, asagidaki if kosulu olmaksızın sanki farklı bir sey eklemisiz gibi Sushi'yi tekrar tekrar ekliyor, iste biz bunu yapmasini istemiyoruz. Aynı id'ye sahip ayni item oldugunu bul, eger yeniden ayni item eklenirse bunu yeniden bul ve ona gore islem yap diyoruz KISACA XD 
     if(existingCartItem) {
-
-      const updatedItem = {
-        ...existingCartItem,
+        
+        const updatedItem = {
+            ...existingCartItem,
         amount: existingCartItem.amount + action.item.amount,
       };
-
+      
       updatedItems = [...state.items]; //state items arrayini kopyaliyoruz
       updatedItems[existingCartItemIndex] = updatedItem; // sonra da updatemItem ne ise sadece onu guncelliyoruz :) 
 
       console.log(updatedItem);
       console.log(updatedItems);
     } 
-    // eger Cart'ta yer almiyorsa items'a ekle diyoruz asagida yapilan islemle de. :) 
+    // eger Cart'a eklenmediyse items'a ekle diyoruz asagida yapilan islemle de. :) 
     else {
         updatedItems = state.items.concat(action.item);
     };
@@ -44,6 +46,7 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount,
     };
   }
+  console.log('STATE:', state.items);
   return defaultCartState;
 };
 
