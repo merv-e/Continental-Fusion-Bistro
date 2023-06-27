@@ -4,38 +4,37 @@ import { ADD_TO_CART, REMOVE_FROM_CART } from "./actionTypes";
 import CartContext from "./cart-context";
 import cartReducer, { defaultCartState } from "./cartReducer";
 
+const CartProvider = (props) => {
+  const [cartState, dispatchCartAction] = useReducer(
+    cartReducer,
+    defaultCartState
+  );
 
-const CartProvider = props => {
+  const addItemToCartHandler = (item) => {
+    dispatchCartAction({
+      type: ADD_TO_CART,
+      item: item,
+    });
+  };
 
-  const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
+  const removeItemFromCartHandler = (id) => {
+    dispatchCartAction({
+      type: REMOVE_FROM_CART,
+    });
+  };
 
-
-    const addItemToCartHandler = item => {
-      dispatchCartAction({
-        type: ADD_TO_CART,
-        item: item,
-      })
-    };
-
-    const removeItemFromCartHandler = id => {
-      dispatchCartAction({
-        type: REMOVE_FROM_CART, 
-        
-      });
-    };
-    
-    const cartContext = {
-      items: cartState.items,
-      totalAmount: cartState.totalAmount,
-      addItem: addItemToCartHandler,
-      removeItem: removeItemFromCartHandler,
-    };
+  const cartContext = {
+    items: cartState.items,
+    totalAmount: cartState.totalAmount,
+    addItem: addItemToCartHandler,
+    removeItem: removeItemFromCartHandler,
+  };
 
   return (
     <CartContext.Provider value={cartContext}>
-        {props.children}
+      {props.children}
     </CartContext.Provider>
-  )
-}
+  );
+};
 
 export default CartProvider;
