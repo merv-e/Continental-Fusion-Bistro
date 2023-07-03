@@ -5,6 +5,7 @@ import CartContext from "./cart-context";
 import cartReducer, { defaultCartState } from "./cartReducer";
 
 const CartProvider = (props) => {
+  
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -20,6 +21,7 @@ const CartProvider = (props) => {
   const removeItemFromCartHandler = (id) => {
     dispatchCartAction({
       type: REMOVE_FROM_CART,
+      id: id,
     });
   };
 

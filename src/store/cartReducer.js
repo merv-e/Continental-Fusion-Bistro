@@ -21,15 +21,13 @@ const cartReducer = (state, action) => {
     // eger shopping cart'ta item bulunuyorsa bu islemi tekrar yapmasin hepsini birlestirsin diye bu islemi yapiyoruz. Orn : diyelim ki Sushi'yi ekledik Cart'a, sonra bir kere daha Sushiyi  ekledik, asagidaki if kosulu olmaksızın sanki farklı bir sey eklemisiz gibi Sushi'yi tekrar tekrar ekliyor, iste biz bunu yapmasini istemiyoruz. Aynı id'ye sahip ayni item oldugunu bul, eger yeniden ayni item eklenirse bunu yeniden bul ve ona gore islem yap diyoruz KISACA XD
     if (existingCartItem) {
       const updatedItem = {
-        ...existingCartItem,
-        amount: existingCartItem.amount + action.item.amount,
+        ...existingCartItem, //Var olan item'i kopyala,
+        amount: existingCartItem.amount + action.item.amount, //amount kısmını güncelleyerek :)
       };
 
-      updatedItems = [...state.items]; //state items arrayini kopyaliyoruz
-      updatedItems[existingCartItemIndex] = updatedItem; // sonra da updatemItem ne ise sadece onu guncelliyoruz :)
+      updatedItems = [...state.items]; // burada cart'taki butun itemları kopyalıyoruz.
+      updatedItems[existingCartItemIndex] = updatedItem; // sonra da updatemItem hangisi ise sadece onu guncelliyoruz :)
 
-      console.log(updatedItem);
-      console.log(updatedItems);
     }
     // eger Cart'a eklenmediyse items'a ekle diyoruz asagida yapilan islemle de. :)
     else {
@@ -40,6 +38,37 @@ const cartReducer = (state, action) => {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
     };
+  }
+
+  if (action.type === REMOVE_FROM_CART) {
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
+
+    const existingItem = state.items[existingCartItemIndex];
+
+    const updatedTotalAmount =
+      state.totalAmount - existingItem.price;
+
+    let updatedItems;
+
+    if (existingItem.amount === 1) {
+      updatedItems = state.items.filter(item => item.id !== action.id)
+    } else {
+      const updatedItem = {...existingItem, amount: existingItem.amount - 1 };
+
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+
+      console.log(updatedItem);
+      console.log(updatedItems);
+    }
+
+    return {
+      ...state,
+      items: updatedItems,
+      totalAmount: updatedTotalAmount,
+    }
   }
 
   return defaultCartState;
