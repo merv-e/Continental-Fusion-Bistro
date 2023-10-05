@@ -18,18 +18,21 @@ const HeaderCartButton = props => {
   const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
   useEffect(()=> {
-    if(items.length ===0 ) {
+    if (items.length === 0) {
       return;
     }
+
+    //if there is no item (check the code above), the code below the if block will not run.
+
     setBtnIsHighlighted(true);
 
-    const timer = setTimeout(()=> {
+    const timer = setTimeout(() => {
       setBtnIsHighlighted(false);
     }, 300);
 
-    return () =>  {
+    return () => {
       clearTimeout(timer);
-    }
+    };
   }, [items]);
 
   return (
