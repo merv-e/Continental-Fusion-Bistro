@@ -33,6 +33,10 @@ const Cart = (props) => {
     </ul>
   );
 
+  const orderMeal = () => {
+    //submitting orders to a backend server
+  };
+
   return (
     <Modal onClose={props.onClose}>
       {cartItems}
@@ -44,7 +48,7 @@ const Cart = (props) => {
         <button className={classes["button--alt"]} onClick={props.onClose}>
           Close
         </button>
-        {hasItems && <button className={classes.button}>Order</button>}
+        {hasItems && <button className={classes.button} onClick={orderMeal}>Order</button>}
       </div>
     </Modal>
   );
