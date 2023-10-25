@@ -1,43 +1,73 @@
 import CartContext from "../../store/cart-context";
 import classes from "./Checkout.module.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+// simple validation of the form inputs
+const isStringValid = (value) => value.trim().length > 0;
+const isPostalCodeValid = (value) => value.trim().length < 5;
+const isEmailValid = (value) => value.includes("@");
 
 const Checkout = (props) => {
-  // const handleSubmit = (ev) => {
-  //     ev.preventDefault();
-  // };
+  const [formInputValidy, setFormInputValidy] = useState({
+    name: true,
+    street: true,
+    postalCode: true,
+    city: true,
+    email: true,
+  });
 
-  const [fullName, setFullName] = useState("");
-  const [street, setStreetName] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
+  const fullnameInput = useRef();
+  const streetInput = useRef();
+  const pCodeInput = useRef();
+  const cityInput = useRef();
+  const emailInput = useRef();
 
-  const [email, setEmail] = useState("");
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const [uzerineGelindi, setUzerineGelindi] = useState(false);
-  const [boslukVar, setBoslukVar] = useState();
+    const fullName = fullnameInput.current.value;
+    const streetName = streetInput.current.value;
+    const pCode = pCodeInput.current.value;
+    const city = cityInput.current.value;
+    const email = emailInput.current.value;
 
-  const orderComplete = () => {
-    console.log("Order Completed. Thank you for choosing our restaurant.");
+    const fullNameVal = !isStringValid(fullName);
+    const streetNameVal = !isStringValid(streetName);
+    const pCodeVal = !isPostalCodeValid(pCode);
+    const cityVal = !isStringValid(city);
+    const emailVal = !isEmailValid(email);
+
+    setFormInputValidy({
+      name: fullNameVal,
+      street: streetNameVal,
+      postalCode: pCodeVal,
+      city: cityVal,
+      email: emailVal,
+    });
+
+    const isFormValid =
+      fullNameVal && streetNameVal && cityVal && pCodeVal && emailVal;
+
+    if (isFormValid) {
+      return;
+    }
   };
 
   return (
     <>
-      <form
-        className={classes["form-checkout"]}
-        onSubmit={(ev) => ev.preventDefault()}
-      >
+      <form className={classes["form-checkout"]} onSubmit={handleSubmit}>
         <div>
           <label htmlFor="fullName">Full Name</label>
           <input
             type="text"
             className={classes.input}
             id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            ref={fullnameInput}
           />
         </div>
-       
+        {!formInputValidy.name && (
+          <p className={classes.isEmpty}>Please write your full name.</p>
+        )}
 
         <div>
           <label htmlFor="street">Street</label>
@@ -45,11 +75,12 @@ const Checkout = (props) => {
             type="text"
             className={classes.input}
             id="street"
-            value={street}
-            onChange={(e) => setStreetName(e.target.value)}
+            ref={streetInput}
           />
         </div>
-        
+        {!formInputValidy.street && (
+          <p className={classes.isEmpty}>Please write your street name.</p>
+        )}
 
         <div>
           <label htmlFor="post-code">Postal Code</label>
@@ -57,38 +88,30 @@ const Checkout = (props) => {
             type="text"
             className={classes.input}
             id="post-code"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
+            ref={pCodeInput}
           />
         </div>
-       
+        {!formInputValidy.postalCode && (
+          <p className={classes.isEmpty}>Please write your postal code.</p>
+        )}
 
         <div>
           <label htmlFor="city">City</label>
-          <input
-            type="text"
-            className={classes.input}
-            id="city"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            
-          />
+          <input type="text" className={classes.input} id="city" ref={cityInput} />
         </div>
-       
+        {!formInputValidy.city && (
+          <p className={classes.isEmpty}>Please write your city.</p>
+        )}
 
         <div>
           <label htmlFor="e-mail">E-mail Adress</label>
-          <input
-            type="e-mail"
-            className={classes.input}
-            id="e-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <input type="e-mail" className={classes.input} id="e-mail" ref={emailInput}/>
         </div>
-        
+        {!formInputValidy.email && (
+          <p className={classes.isEmpty}>Please write your e-mail address.</p>
+        )}
 
-        <div className={classes["button-container"]}>
+        <div className={classes["button-checkout"]}>
           <button
             type="button"
             className={classes.cancelOrder}
@@ -98,8 +121,9 @@ const Checkout = (props) => {
           </button>
 
           <button
-            type="submit"
-            onClick={orderComplete}
+          // type="submit"
+          // disabled={formInputValidy}
+          // onClick={orderComplete}
           >
             Complete Order
           </button>
