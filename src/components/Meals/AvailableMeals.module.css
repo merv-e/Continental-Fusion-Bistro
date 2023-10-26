@@ -22,3 +22,15 @@
         transform: translateY(0);
     }
 }
+
+.loading {
+    text-align: center;
+    color: white;
+    margin-top: 5rem;
+}
+
+.error {
+    text-align: center;
+    color: rgb(140, 20, 20);
+    margin-top: 5rem;
+}
