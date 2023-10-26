@@ -1,4 +1,3 @@
-import CartContext from "../../store/cart-context";
 import classes from "./Checkout.module.css";
 import { useRef, useState } from "react";
 
