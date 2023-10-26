@@ -9,7 +9,7 @@ import Checkout from "./Checkout";
 const Cart = (props) => {
   //Loading and error states
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   // order states
   const [isOrdered, setIsOrdered] = useState(false);
@@ -45,17 +45,16 @@ const Cart = (props) => {
         }
       );
       if (!response.ok) {
-        throw new Error("Order is not successful!")
+        throw new Error("Order is not successful!");
       }
       setIsOrderSuccessful(true);
 
       setIsLoading(false);
       setIsSubmitted(false);
-
     } catch (error) {
       setIsLoading(false);
       console.log(error.message);
-      // setError(error.message);
+      setError(error.message);
       // setIsOrderSuccessful(false);
     }
   };
@@ -74,6 +73,7 @@ const Cart = (props) => {
       ))}
     </ul>
   );
+
 
   const cartModalContent = (
     <Fragment>
@@ -99,13 +99,19 @@ const Cart = (props) => {
 
   const successfulOrderContent = <p>Order Succesfully Completed!</p>;
 
-  // const err = <p>Something went wrong!{error} </p>;
+  const err = <p>Something went wrong!{error} </p>;
 
   // CONSOLE LOGS
-  console.log("isOrdered:", isOrdered);
-  console.log("isSubmitted:", isSubmitted);
-  console.log("isOrderSuccessful:", isOrderSuccessful);
-  // console.log("error:", error);
+// console.log("start");
+// console.group();
+// console.log("isOrdered:", isOrdered);
+// console.group();
+// console.log("isSubmitted:", isSubmitted);
+// console.group();
+// console.log("isOrderSuccessful:", isOrderSuccessful);
+// console.group();
+// console.log("error:", error);
+// console.groupEnd();
 
   return (
     <Modal onClose={props.onClose}>
@@ -121,7 +127,7 @@ const Cart = (props) => {
 
       {isOrderSuccessful && successfulOrderContent}
 
-      {/* {error && err} */}
+      {error && err}
     </Modal>
   );
 };

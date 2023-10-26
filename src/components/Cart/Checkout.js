@@ -2,9 +2,9 @@ import classes from "./Checkout.module.css";
 import { useRef, useState } from "react";
 
 // simple validation of the form inputs
-const isStringValid = (value) => value.trim().length > 0;
+const isStringValid = (value) => value.trim() !== "";
 const isPostalCodeValid = (value) => value.trim().length < 5;
-const isEmailValid = (value) => value.includes("@");
+const isEmailValid = (value) => value.trim().includes("@");
 
 const Checkout = (props) => {
   const [formInputValidy, setFormInputValidy] = useState({
@@ -15,51 +15,60 @@ const Checkout = (props) => {
     email: true,
   });
 
-  const fullnameInput = useRef();
+  const fullNameInput = useRef();
   const streetInput = useRef();
   const pCodeInput = useRef();
   const cityInput = useRef();
   const emailInput = useRef();
 
-  // create custom hook
+  //TODO: create custom hook
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const fullName = fullnameInput.current.value;
+    // variables with current names after getting user input
+    const fullName = fullNameInput.current.value;
     const streetName = streetInput.current.value;
     const pCode = pCodeInput.current.value;
     const city = cityInput.current.value;
     const email = emailInput.current.value;
 
-    //   const fullNameVal = !isStringValid(fullName);
-    //   const streetNameVal = !isStringValid(streetName);
-    //   const pCodeVal = !isPostalCodeValid(pCode);
-    //   const cityVal = !isStringValid(city);
-    //   const emailVal = !isEmailValid(email);
+    // checking whether user's info is valid in the input fields
+    const fullNameValidity = isStringValid(fullName);
+    const streetNameValidity = isStringValid(streetName);
+    const pCodeValidity = isPostalCodeValid(pCode);
+    const cityValidity = isStringValid(city);
+    const emailValidity = isEmailValid(email);
 
-    //   setFormInputValidy({
-    //     name: fullNameVal,
-    //     street: streetNameVal,
-    //     postalCode: pCodeVal,
-    //     city: cityVal,
-    //     email: emailVal,
-    //   });
+    // check for validity and then form will be valid if these values are valid
+    setFormInputValidy({
+      name: fullNameValidity,
+      street: streetNameValidity,
+      postalCode: pCodeValidity,
+      city: cityValidity,
+      email: emailValidity,
+    });
 
-    //   const isFormValid =
-    //     fullNameVal && streetNameVal && cityVal && pCodeVal && emailVal;
+    const isFormValid =
+      fullNameValidity &&
+      streetNameValidity &&
+      cityValidity &&
+      pCodeValidity &&
+      emailValidity;
 
-    //   if (isFormValid) {
-    //     return;
-    //   }
+    if (!isFormValid) {
+      return;
+    }
 
-    //   props.onOrder({
-    //     name: fullName,
-    //     street: streetName,
-    //     postalCode: pCode,
-    //     city: city,
-    //     email: email,
-    //   });
+    console.log(isFormValid);
+
+    props.onOrder({
+      name: fullName,
+      street: streetName,
+      postalCode: pCode,
+      city: city,
+      email: email,
+    });
   };
 
   const orderForm = (
@@ -70,7 +79,7 @@ const Checkout = (props) => {
           type="text"
           className={classes.input}
           id="fullName"
-          ref={fullnameInput}
+          ref={fullNameInput}
         />
       </div>
       {!formInputValidy.name && (
@@ -100,7 +109,7 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.postalCode && (
-        <p className={classes.isEmpty}>Please write your postal code.</p>
+        <p className={classes.isEmpty}>Please write a valid postal code.</p>
       )}
 
       <div>
@@ -126,12 +135,12 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.email && (
-        <p className={classes.isEmpty}>Please write your e-mail address.</p>
+        <p className={classes.isEmpty}>Please write a valid e-mail address.</p>
       )}
 
       <div className={classes["button-checkout"]}>
         <button
-          type="button"
+          // type="button"
           className={classes.cancelOrder}
           onClick={props.onCancel}
         >
@@ -139,9 +148,7 @@ const Checkout = (props) => {
         </button>
 
         <button
-        // type="submit"
         // disabled={formInputValidy}
-        onClick={props.onOrder}
         >
           Complete Order
         </button>
