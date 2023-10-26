@@ -45,7 +45,13 @@
     color: white;
 }
 
+.succesfull-order, .error, .loading {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color:#363636;
+}
+
 .loading {
-    color: white;
-    background: red;
+    color: red;
 }

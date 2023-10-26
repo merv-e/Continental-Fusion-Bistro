@@ -74,7 +74,6 @@ const Cart = (props) => {
     </ul>
   );
 
-
   const cartModalContent = (
     <Fragment>
       {cartItems}
@@ -95,27 +94,17 @@ const Cart = (props) => {
     </Fragment>
   );
 
-  const loading = <p className={classes.loading}>Loading...</p>;
+  // const loading = <p className={classes.loading}>Loading...</p>;
 
-  const successfulOrderContent = <p>Order Succesfully Completed!</p>;
+  const successfulOrderContent = (
+    <p className={classes["succesfull-order"]}>Order Succesfully Completed! Please check your e-mail address for confirmation.</p>
+  );
 
-  const err = <p>Something went wrong!{error} </p>;
-
-  // CONSOLE LOGS
-// console.log("start");
-// console.group();
-// console.log("isOrdered:", isOrdered);
-// console.group();
-// console.log("isSubmitted:", isSubmitted);
-// console.group();
-// console.log("isOrderSuccessful:", isOrderSuccessful);
-// console.group();
-// console.log("error:", error);
-// console.groupEnd();
+  const err = <p className={classes.error}>Something went wrong!{error} </p>;
 
   return (
     <Modal onClose={props.onClose}>
-      {!isOrdered && !isSubmitted && cartModalContent}
+      {!isOrdered && !isSubmitted && !isOrderSuccessful && cartModalContent}
 
       {isOrdered && !isSubmitted && (
         <Checkout
@@ -126,7 +115,6 @@ const Cart = (props) => {
       )}
 
       {isOrderSuccessful && successfulOrderContent}
-
       {error && err}
     </Modal>
   );
