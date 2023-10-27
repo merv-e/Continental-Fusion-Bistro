@@ -2,15 +2,16 @@ import classes from "./MealsSummary.module.css";
 
 const MealsSummary = () => {
   return (
-    <section className={classes.summary}>
-      <h2>Delicious Food, Delivered To You</h2>
+    <section className={classes["meal-summary"]}>
+      <h2>Exquisite Cuisine, Delivered Straight to Your Door</h2>
       <p>
-        Choose your favorite meal from our broad selection of available meals
-        and enjoy a delicious lunch or dinner at home.
+        Select your preferred dish from our extensive range of options and savor
+        a delectable lunch or dinner in the comfort of your own home.
       </p>
+
       <p>
-        All our meals are cooked with high-quality ingredients, just-in-time and
-        of course by experienced chefs!
+        Every dish is prepared with top-tier ingredients, right on time, and of
+        course, by skilled culinary experts!
       </p>
     </section>
   );
