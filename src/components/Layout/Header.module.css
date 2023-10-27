@@ -20,6 +20,10 @@
     gap: 10px;
 }
 
+.restaurant-name {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .icon {
     width: 50px;
 }
