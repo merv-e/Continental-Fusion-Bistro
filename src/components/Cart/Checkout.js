@@ -139,19 +139,11 @@ const Checkout = (props) => {
       )}
 
       <div className={classes["button-checkout"]}>
-        <button
-          // type="button"
-          className={classes.cancelOrder}
-          onClick={props.onCancel}
-        >
+        <button className={classes.cancelOrder} onClick={props.onCancel}>
           Cancel
         </button>
 
-        <button
-        // disabled={formInputValidy}
-        >
-          Complete Order
-        </button>
+        <button>Complete Order</button>
       </div>
       <h2>Total Amount: {props.totalAmount}</h2>
     </form>

@@ -53,16 +53,11 @@
   color: inherit;
 }
 
-/* .cancelOrder {
-  background-color: red;
-  color: white;
-} */
-
 .button-checkout button:disabled {
   cursor: not-allowed;
 }
 
-.notWrittenAnything {
+.isEmpty {
   color: red;
   text-align: end;
   font-weight: 600;
