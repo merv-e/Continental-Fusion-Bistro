@@ -13,3 +13,9 @@ body {
   background-color: #3f3f3f;
 }
 
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: small;
+  }
+}
+
