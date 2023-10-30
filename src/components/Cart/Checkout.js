@@ -74,9 +74,6 @@ const Checkout = (props) => {
     });
   };
 
-  // orderCompleted
-  const [isOrderCompleted, setIsOrderCompleted] = useState(false);
-
   const orderForm = (
     <form className={classes["form-checkout"]} onSubmit={handleSubmit}>
       <div>
@@ -157,9 +154,7 @@ const Checkout = (props) => {
           Cancel
         </button>
 
-        <button onClick={() => setIsOrderCompleted(true)}>
-          Complete Order
-        </button>
+        <button>Complete Order</button>
       </div>
       <h2>Total Amount: {props.totalAmount}</h2>
     </form>
