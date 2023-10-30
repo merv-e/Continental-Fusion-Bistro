@@ -48,12 +48,11 @@ const Cart = (props) => {
         throw new Error("Order is not successful!");
       }
       setIsOrderSuccessful(true);
-
       setIsLoading(false);
       setIsSubmitted(false);
+      cartCtx.resetItems();
     } catch (error) {
       setIsLoading(false);
-      console.log(error.message);
       setError(error.message);
       // setIsOrderSuccessful(false);
     }
@@ -97,11 +96,21 @@ const Cart = (props) => {
   // const loading = <p className={classes.loading}>Loading...</p>;
 
   const successfulOrderContent = (
-    <p className={classes["succesfull-order"]}>Order Succesfully Completed! Please check your e-mail address for confirmation.</p>
+    <div className={classes["succesfull-order"]}>
+      <p className={classes["order-succesfull-text"]}>
+        Order Succesfully Completed! Please check your e-mail address for
+        confirmation.
+      </p>
+      <button onClick={props.onClose}>Close</button>
+    </div>
   );
 
-  const err = <p className={classes.error}>Something went wrong!{error} </p>;
-
+  const err = (
+    <div className={classes.error}>
+      <p className={classes["error-text"]}>Something went wrong! Please try again!</p>
+      <button onClick={props.onClose}>Close</button>
+    </div>
+  );
   return (
     <Modal onClose={props.onClose}>
       {!isOrdered && !isSubmitted && !isOrderSuccessful && cartModalContent}

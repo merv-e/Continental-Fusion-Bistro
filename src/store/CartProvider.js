@@ -1,11 +1,10 @@
 import { useReducer } from "react";
-import { ADD_TO_CART, REMOVE_FROM_CART } from "./actionTypes";
+import { ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL } from "./actionTypes";
 
 import CartContext from "./cart-context";
 import cartReducer, { defaultCartState } from "./cartReducer";
 
 const CartProvider = (props) => {
-  
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -25,11 +24,18 @@ const CartProvider = (props) => {
     });
   };
 
+  const removeAllItemsFromCartHandler = () => {
+    dispatchCartAction({
+      type: REMOVE_ALL,
+    });
+  };
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    resetItems: removeAllItemsFromCartHandler,
   };
 
   return (

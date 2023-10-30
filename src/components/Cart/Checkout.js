@@ -1,10 +1,15 @@
 import classes from "./Checkout.module.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// simple validation of the form inputs
-const isStringValid = (value) => value.trim() !== "";
-const isPostalCodeValid = (value) => value.trim().length < 5;
-const isEmailValid = (value) => value.trim().includes("@");
+// basic validation of the form inputs
+const stringRegex = /^[A-Za-z\s'-]+$/;
+const isStringValid = (value) => stringRegex.test(value);
+
+const pCodeRegex = /^\d{1,4}$/;
+const isPostalCodeValid = (value) => pCodeRegex.test(value);
+
+const eMailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const isEmailValid = (value) => eMailRegex.test(value);
 
 const Checkout = (props) => {
   const [formInputValidy, setFormInputValidy] = useState({
@@ -60,8 +65,6 @@ const Checkout = (props) => {
       return;
     }
 
-    console.log(isFormValid);
-
     props.onOrder({
       name: fullName,
       street: streetName,
@@ -70,6 +73,9 @@ const Checkout = (props) => {
       email: email,
     });
   };
+
+  // orderCompleted
+  const [isOrderCompleted, setIsOrderCompleted] = useState(false);
 
   const orderForm = (
     <form className={classes["form-checkout"]} onSubmit={handleSubmit}>
@@ -83,7 +89,9 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.name && (
-        <p className={classes.isEmpty}>Please write your full name.</p>
+        <p className={classes.isEmpty}>
+          Please enter your full name without using any special characters.
+        </p>
       )}
 
       <div>
@@ -96,7 +104,9 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.street && (
-        <p className={classes.isEmpty}>Please write your street name.</p>
+        <p className={classes.isEmpty}>
+          Please enter your street name without using any special characters.
+        </p>
       )}
 
       <div>
@@ -109,7 +119,9 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.postalCode && (
-        <p className={classes.isEmpty}>Please write a valid postal code.</p>
+        <p className={classes.isEmpty}>
+          Please enter a postal code that does not exceed 4 digits.
+        </p>
       )}
 
       <div>
@@ -122,7 +134,9 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.city && (
-        <p className={classes.isEmpty}>Please write your city.</p>
+        <p className={classes.isEmpty}>
+          Please enter your city without using any special characters.
+        </p>
       )}
 
       <div>
@@ -135,7 +149,7 @@ const Checkout = (props) => {
         />
       </div>
       {!formInputValidy.email && (
-        <p className={classes.isEmpty}>Please write a valid e-mail address.</p>
+        <p className={classes.isEmpty}>Please enter a valid e-mail address.</p>
       )}
 
       <div className={classes["button-checkout"]}>
@@ -143,7 +157,9 @@ const Checkout = (props) => {
           Cancel
         </button>
 
-        <button>Complete Order</button>
+        <button onClick={() => setIsOrderCompleted(true)}>
+          Complete Order
+        </button>
       </div>
       <h2>Total Amount: {props.totalAmount}</h2>
     </form>
