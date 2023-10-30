@@ -61,8 +61,24 @@
   }
 }
 
+.order-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* order-info'nun icindekiler icin bir menu hazirla mobile versionlar icin*/
+
 @media only screen and (max-width: 280px) {
   .restaurant-name {
     visibility: hidden;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .visible {
+    
+  }
+}
+
+

@@ -3,6 +3,7 @@ import classes from "./Header.module.css";
 import meals from "../../assets/meals.jpg";
 import HeaderCart from "./HeaderCart";
 import icon from "../../../src/assets/logo-android-chrome-192.png";
+import OrderHistory from "./OrderHistory";
 
 const Header = (props) => {
   return (
@@ -14,7 +15,10 @@ const Header = (props) => {
             Continental Fusion Bistro
           </h1>
         </div>
-        <HeaderCart onClick={props.onShowCart} />
+        <div className={classes["order-info"]}>
+          <HeaderCart onShowCart={props.onShowCart} />
+          <OrderHistory  />
+        </div>
       </header>
 
       <div className={classes["main-image"]}>

@@ -1,0 +1,23 @@
+.order-history {
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
+  background-color: #2c0d00;
+}
+
+.order-history button {
+  border: none;
+  padding: 0.25rem 1rem;
+  color: #fff;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: medium;
+  background-color: transparent;
+}
+
+.order-history:hover,
+.order-history button:hover,
+.order-history button:active {
+  background-color: transparent;
+  cursor: pointer;
+  color: #000000ef;
+}
