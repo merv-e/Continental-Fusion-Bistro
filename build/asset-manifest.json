@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.33c8588b.css",
+    "main.js": "/static/js/main.adb00fe0.js",
+    "static/media/meals.jpg": "/static/media/meals.f0cdb872cb580a76050e.jpg",
+    "static/media/logo-android-chrome-192.png": "/static/media/logo-android-chrome-192.53d4c45c33201aff9844.png",
+    "index.html": "/index.html",
+    "main.33c8588b.css.map": "/static/css/main.33c8588b.css.map",
+    "main.adb00fe0.js.map": "/static/js/main.adb00fe0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.33c8588b.css",
+    "static/js/main.adb00fe0.js"
+  ]
+}
