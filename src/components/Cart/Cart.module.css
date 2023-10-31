@@ -19,7 +19,9 @@
     text-align: right;
 }
 
-.actions button {
+.actions button,
+.succesfull-order button,
+.error button{
     font: inherit;
     cursor: pointer;
     background-color: transparent;

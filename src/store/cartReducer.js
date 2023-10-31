@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "./actionTypes";
+import { ADD_TO_CART, REMOVE_ALL, REMOVE_FROM_CART } from "./actionTypes";
 
 export const defaultCartState = {
   items: [],
@@ -48,7 +48,7 @@ const cartReducer = (state, action) => {
     const existingItem = state.items[existingCartItemIndex];
 
     const updatedTotalAmount =
-      state.totalAmount - existingItem.price;
+     Math.abs(state.totalAmount - existingItem.price);
 
     let updatedItems;
 
@@ -60,8 +60,6 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
 
-      console.log(updatedItem);
-      console.log(updatedItems);
     }
 
     return {
@@ -69,6 +67,10 @@ const cartReducer = (state, action) => {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
     }
+  }
+
+  if (action.type === REMOVE_ALL) {
+    return defaultCartState;
   }
 
   return defaultCartState;
