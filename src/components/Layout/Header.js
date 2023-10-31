@@ -17,7 +17,7 @@ const Header = (props) => {
         </div>
         <div className={classes["order-info"]}>
           <HeaderCart onShowCart={props.onShowCart} />
-          <OrderHistory  />
+          <OrderHistory />
         </div>
       </header>
 

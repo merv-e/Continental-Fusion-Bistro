@@ -1,5 +1,6 @@
 import classes from "./Checkout.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+
 
 // basic validation of the form inputs
 const stringRegex = /^[A-Za-z\s'-]+$/;
@@ -11,6 +12,8 @@ const isPostalCodeValid = (value) => pCodeRegex.test(value);
 const eMailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const isEmailValid = (value) => eMailRegex.test(value);
 
+
+// Checkout Component
 const Checkout = (props) => {
   const [formInputValidy, setFormInputValidy] = useState({
     name: true,
@@ -38,14 +41,14 @@ const Checkout = (props) => {
     const city = cityInput.current.value;
     const email = emailInput.current.value;
 
-    // checking whether user's info is valid in the input fields
+    // checking whether the info provided is valid or not in the input fields
     const fullNameValidity = isStringValid(fullName);
     const streetNameValidity = isStringValid(streetName);
     const pCodeValidity = isPostalCodeValid(pCode);
     const cityValidity = isStringValid(city);
     const emailValidity = isEmailValid(email);
 
-    // check for validity and then form will be valid if these values are valid
+// checks for validity and eventually the form will be valid if all of these values are valid
     setFormInputValidy({
       name: fullNameValidity,
       street: streetNameValidity,
@@ -83,12 +86,11 @@ const Checkout = (props) => {
           className={classes.input}
           id="fullName"
           ref={fullNameInput}
+          placeholder="Jane Doe"
         />
       </div>
       {!formInputValidy.name && (
-        <p className={classes.isEmpty}>
-          Please enter your full name without using any special characters.
-        </p>
+        <p className={classes.isEmpty}>Please enter your full name.</p>
       )}
 
       <div>
@@ -98,6 +100,7 @@ const Checkout = (props) => {
           className={classes.input}
           id="street"
           ref={streetInput}
+          placeholder="Willow"
         />
       </div>
       {!formInputValidy.street && (
@@ -113,6 +116,7 @@ const Checkout = (props) => {
           className={classes.input}
           id="post-code"
           ref={pCodeInput}
+          placeholder="1245"
         />
       </div>
       {!formInputValidy.postalCode && (
@@ -128,11 +132,13 @@ const Checkout = (props) => {
           className={classes.input}
           id="city"
           ref={cityInput}
+          placeholder="New York"
         />
       </div>
       {!formInputValidy.city && (
         <p className={classes.isEmpty}>
-          Please enter your city without using any special characters.
+          Please enter your <strong>city</strong> without using any special
+          characters.
         </p>
       )}
 
@@ -143,6 +149,7 @@ const Checkout = (props) => {
           className={classes.input}
           id="e-mail"
           ref={emailInput}
+          placeholder="abcdef12345-test@mail.com"
         />
       </div>
       {!formInputValidy.email && (
