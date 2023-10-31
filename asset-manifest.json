@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Continental-Fusion-Bistro/static/css/main.33c8588b.css",
+    "main.js": "/Continental-Fusion-Bistro/static/js/main.d212fc1a.js",
+    "static/media/meals.jpg": "/Continental-Fusion-Bistro/static/media/meals.f0cdb872cb580a76050e.jpg",
+    "static/media/logo-android-chrome-192.png": "/Continental-Fusion-Bistro/static/media/logo-android-chrome-192.53d4c45c33201aff9844.png",
+    "index.html": "/Continental-Fusion-Bistro/index.html",
+    "main.33c8588b.css.map": "/Continental-Fusion-Bistro/static/css/main.33c8588b.css.map",
+    "main.d212fc1a.js.map": "/Continental-Fusion-Bistro/static/js/main.d212fc1a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.33c8588b.css",
+    "static/js/main.d212fc1a.js"
+  ]
+}
