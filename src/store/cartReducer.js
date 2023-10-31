@@ -48,7 +48,7 @@ const cartReducer = (state, action) => {
     const existingItem = state.items[existingCartItemIndex];
 
     const updatedTotalAmount =
-      state.totalAmount - existingItem.price;
+     Math.abs(state.totalAmount - existingItem.price);
 
     let updatedItems;
 
@@ -60,8 +60,6 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
 
-      console.log(updatedItem);
-      console.log(updatedItems);
     }
 
     return {
