@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import classes from "./Header.module.css";
 import meals from "../../assets/meals.jpg";
 import HeaderCart from "./HeaderCart";
@@ -6,6 +6,20 @@ import icon from "../../../src/assets/logo-android-chrome-192.png";
 import OrderHistory from "./OrderHistory";
 
 const Header = (props) => {
+  const [isScreenSmall, setIsScreenSmall] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreenSmall(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Fragment>
       <header className={classes.header}>
@@ -16,8 +30,19 @@ const Header = (props) => {
           </h1>
         </div>
         <div className={classes["order-info"]}>
-          <HeaderCart onShowCart={props.onShowCart} />
-          <OrderHistory />
+          {!isScreenSmall ? (
+            <>
+              <HeaderCart onShowCart={props.onShowCart} />
+              <OrderHistory />
+            </>
+          ) : (
+            <div className={classes.menu}>
+              <button className={classes["menu-button"]}>
+                <span>&#9776;</span>
+                
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
